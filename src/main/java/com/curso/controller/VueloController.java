@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -63,7 +63,7 @@ public class VueloController {
 			@ApiResponse(responseCode = "202", description = "Es posible realizar la reserva, por tanto la peticion de reserva se he aceptado"),
 			@ApiResponse(responseCode = "400", description = "No es posible registrar la reserva porque no se cumplen las condiciones para ello")
 	})
-	@PutMapping(value="/{idVuelo}/{plazas}", consumes=MediaType.APPLICATION_JSON_VALUE)
+	@PatchMapping(value="/{idVuelo}/{plazas}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> reservar(
 			@Parameter(
 				name = "idVuelo",
@@ -75,7 +75,7 @@ public class VueloController {
 					description = "Numero de plazas que se desea reservar",
 					required = true)
 			@PathVariable int plazas){
-		HttpStatus responseStatus = service.reservar(idVuelo, plazas) ? HttpStatus.ACCEPTED : HttpStatus.BAD_REQUEST;
+		HttpStatus responseStatus = service.reservar(idVuelo, plazas) ? HttpStatus.ACCEPTED : HttpStatus.CONFLICT;
 		return new ResponseEntity<>(responseStatus);
 	}
 
