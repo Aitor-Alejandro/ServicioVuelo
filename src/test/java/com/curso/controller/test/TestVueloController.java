@@ -1,7 +1,10 @@
 package com.curso.controller.test;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -24,16 +27,17 @@ class TestVueloController {
 	@BeforeEach
 	void setUp() {
 		Vuelo vuelo = new Vuelo(1,"ryanair",new Date(System.currentTimeMillis()), 55.5, 12);
-		//when(service.vueloById(1).thenReturn(vuelo));
+		when(service.findById(1)).thenReturn(vuelo);
 		when(service.vuelos()).thenReturn(Arrays.asList(vuelo));
 		
 	}
 	
-	
-	/*
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testGet() throws Exception{
+		mockMvc.perform(get("/api/vuelos"))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$[0].company", is("ryanair")));
 	}
-	*/
+	
+	
 }
