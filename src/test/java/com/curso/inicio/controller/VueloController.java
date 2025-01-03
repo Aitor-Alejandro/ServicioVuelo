@@ -42,9 +42,15 @@ class VueloController {
 	}
 	@Test
 	void findByPlazasTest() throws Exception {
-		mockMvc.perform(get("/api/vuelos/1"))
-			.andExpect(status().isOk());
-		mockMvc.perform(get("/api/vuelos/99"))
+		mockMvc.perform(get("/api/vuelos/plazas").param("plazas", "1"))
+			.andExpect(jsonPath("$[0].company", is ("ryanair")));
+		mockMvc.perform(get("/api/vuelos").param("plazas", "plazas").param("plazas", "99"))
 			.andExpect(status().isNotFound());
+		/*
+		mockMvc.perform(get("/api/reservas/id/1"))
+			.andExpect(status().isOk());
+		mockMvc.perform(get("/api/reservas/id/2"))
+			.andExpect(status().isNotFound());
+		 */
 	}
 }

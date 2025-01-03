@@ -19,6 +19,7 @@ import jakarta.persistence.Table;
 public class Vuelo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_vuelo")
 	private long idVuelo;
 	private String company;
 	@Column(name="fecha_vuelo")

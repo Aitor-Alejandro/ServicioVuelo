@@ -48,12 +48,13 @@ public class VueloController {
 			@ApiResponse(responseCode = "404", description = "No hay ningun vuelo que disponga del numero de plazas solicitado"),
 			@ApiResponse(responseCode = "200", description = "Devuele los vuelos que cumplen con la condicion de tener plazas sufucientes")
 	})
-	@GetMapping(value="/{plazas}", produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/plazas/{plazas}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Vuelo>> vuelos(@Parameter(
 			name = "plazas",
 			description = "Número de plazas por el que se consulta",
 			required = true)
 		@PathVariable int plazas){
+		System.out.println(plazas);
 		List<Vuelo> listVuelos = service.vuelos(plazas);
 		
 		HttpStatus responseStatus = listVuelos.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK;
