@@ -34,10 +34,11 @@ public class VueloController {
 	VueloService service;
 	@Autowired
 	RestTemplate template;
-	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
+	
 	@Operation(summary = "Obtencion de vuelos", description = "Devuelve todos los vuelos existentes en la base de datos", responses = {
 			@ApiResponse(responseCode = "200", description = "Se han obtenido todos los vuelos")
 	})
+	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Vuelo>> vuelos(){
 		return new ResponseEntity<>(service.vuelos(), HttpStatus.OK);
 	}
@@ -67,9 +68,9 @@ public class VueloController {
 	@PutMapping(value="/{idVuelo}/{plazas}")
 	public ResponseEntity<Void> reservar(
 			@Parameter(
-				name = "idVuelo",
-				description = "Código identificador del vuelo",
-				required = true)
+					name = "idVuelo",
+					description = "Código identificador del vuelo",
+					required = true)
 			@PathVariable long idVuelo,
 			@Parameter(
 					name = "plazas",
