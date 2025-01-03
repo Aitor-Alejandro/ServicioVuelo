@@ -50,7 +50,8 @@ public class VueloController {
 	@GetMapping(value="/{plazas}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Vuelo>> vuelos(@Parameter(
 			name = "plazas",
-			description = "Número de plazas por el que se consulta")
+			description = "Número de plazas por el que se consulta",
+			required = true)
 		@PathVariable int plazas){
 		List<Vuelo> listVuelos = service.vuelos(plazas);
 		
